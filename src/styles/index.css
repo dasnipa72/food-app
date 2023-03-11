@@ -1,0 +1,37 @@
+.container{
+    margin-top: 40px;
+}
+.vendor-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.spinner-container{
+    height: 250px;
+    margin: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card{
+    margin: 10px;
+}
+.vendor-card-img{
+    max-height: 45%;
+    min-height: 40%;
+}
+.banner-caontainer {
+    height: 388px;
+    padding: 20px 25px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background: url(../images/banner3.jpg) 0 0 no-repeat fixed; */
+    overflow: hidden;
+}
+.center-element {
+    display: flex;
+    align-items: center;
+}
