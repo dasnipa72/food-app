@@ -10,6 +10,12 @@ function UserProvider({ children }) {
     const [menuItems, setMenuItems] = useState([]);
     const [cartItems, setcartItems] = useState([]);
     const [orderedItems, setorderedItems] = useState([]);
+    const [selectedVendor, setSelectedVendor] = useState({
+        id:'',
+        name: '',
+        logo:'',
+        ratingValue:''
+    });
 
     const allObj = {
         data,
@@ -17,7 +23,8 @@ function UserProvider({ children }) {
         menuItems,
         cartItems,
         orderedItems,
-        resturants
+        resturants,
+        selectedVendor
     }
 
     const allSetFunction = {
@@ -26,7 +33,8 @@ function UserProvider({ children }) {
         setMenuItems,
         setcartItems,
         setorderedItems,
-        setResturants
+        setResturants,
+        setSelectedVendor
     }
     return (
         <UserContext.Provider value={allObj}>

@@ -35,3 +35,12 @@
     display: flex;
     align-items: center;
 }
+.veg{
+    color: green;
+    font-weight: 600;
+}
+.nonveg{
+    color: red;
+    font-weight: 400;
+
+}

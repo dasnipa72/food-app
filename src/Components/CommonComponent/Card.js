@@ -3,10 +3,10 @@ import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from 'react
 import { dummyResturant } from '../../images';
 
 export default function UnifiedCard(props) {
-    const { key, title, description, img, altImage, handleClick, btnName, imgRequire, children } = props;
+    const { key, title, subtitle, description, img, altImage, handleClick, btnName, imgRequire, children } = props;
     return (
         <Card
-            style={{ width: '25rem'}}
+            style={{ width: '25rem' }}
             key={key}
         >
             {imgRequire && <img alt={title} src={img || altImage || dummyResturant} className='vendor-card-img' />}
@@ -18,7 +18,7 @@ export default function UnifiedCard(props) {
                     className="mb-2 text-muted"
                     tag="h6"
                 >
-                    Card subtitle
+                    {subtitle}
                 </CardSubtitle>
                 <CardText>
                     {description}

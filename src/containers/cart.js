@@ -38,6 +38,7 @@ export default function cart() {
 
   const cartItems = useContext(UserContext).cartItems;
   const setCartItems = useContext(UserDispatchContext).setcartItems;
+  const orderedItems = useContext(UserContext).orderedItems
   const setorderedItems = useContext(UserDispatchContext).setorderedItems;
   const apiCall = useContext(ApiDispatchContext);
 
@@ -46,7 +47,8 @@ export default function cart() {
   }, [cartItems])
 
   const calculateAmount = () => {
-    setTotalAmount(cartItems.reduce((acc, curr) => acc + curr.sellingPrice, 0))
+    const amt = cartItems.reduce((acc, curr) => acc + curr.sellingPrice, 0)
+    setTotalAmount( Math.round( amt* 100)/100)
   }
 
   const removeCartItem = (id) => {
@@ -63,8 +65,8 @@ export default function cart() {
           setModalTitle('Confirmation!')
           setModalMsg('Ordered Placed Successfully')
           setCartItems([])
-          setorderedItems(res.data)
-          window.localStorage.setItem(constants.localStorageKey.ORDER_DETAILS, res.data)
+          setorderedItems(prev => [...prev, res.data]);
+          window.localStorage.setItem(constants.localStorageKey.ORDER_DETAILS, [...orderedItems, res.data])
 
         }
       })
@@ -88,7 +90,7 @@ export default function cart() {
                   key={id}
                   title={itemName}
                   description={description}
-                  btnName={'Add to Cart'} // show more
+                  btnName={'Add to Cart'}
                   img={image}
                   altImage={neonUrl}
                   imgRequire={true}

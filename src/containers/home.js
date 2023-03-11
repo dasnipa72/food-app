@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import { Container, Row, Col} from 'reactstrap';
+import { useNavigate } from 'react-router-dom';
+import { Container, Row} from 'reactstrap';
 import { UserContext, UserDispatchContext } from '../context/context';
 import { ApiDispatchContext } from '../context/ApiContext';
 import constants from '../constants/constants';
 import UnifiedCard from '../Components/CommonComponent/Card';
 // import OutletCard from '../Components/OutletCard';
 import Loader from '../Components/CommonComponent/Loader';
+import Cuisines from '../Components/cuisines';
 export default function Home() {
   const [vendors, setVendors] = useState([])
   const [stationName, setStationName] = useState('')
@@ -14,6 +15,7 @@ export default function Home() {
   const [isLoader, setLoader] = useState(false)
   const resturants = useContext(UserContext).resturants;
   const setResturants = useContext(UserDispatchContext).setResturants;
+  const setSelectedVendor = useContext(UserDispatchContext).setSelectedVendor; 
   const apiCall = useContext(ApiDispatchContext);
   const navigate = useNavigate()
   useEffect(() => {
@@ -25,10 +27,10 @@ export default function Home() {
     setLoader(true)
     await apiCall.getResturants()
       .then(res => {
-        const resData = res.data.result;
-        setResturants(resData.vendors);
-        setStationName(resData.stationName)
-        setTotalOutlets(resData.totalOutlets)
+        const resData = res?.data?.result;
+        setResturants(resData?.vendors);
+        setStationName(resData?.stationName)
+        setTotalOutlets(resData?.totalOutlets)
         setLoader(false)
       })
       .catch(e => {
@@ -36,7 +38,15 @@ export default function Home() {
       })
   }
 
-  const handleViewClick = async() => {
+  const handleViewClick = (vendor) => {
+    const {id, name, logo, ratingValue} = vendor
+        setSelectedVendor((prev)=> ({
+          ...prev,
+          id,
+          name,
+          logo,
+          ratingValue,
+        }))
         navigate(`/${constants.screen.MENU}`)
   }
 
@@ -58,7 +68,7 @@ export default function Home() {
               title={name}
               description={name}
               img={logo}
-              handleClick={handleViewClick}
+              handleClick={() => handleViewClick(vendor)}
               imgRequire={true}
             >
               <>
@@ -66,6 +76,7 @@ export default function Home() {
               <p>Rating : {ratingValue}</p>
               <p>Rating Count : {ratingCount}</p>
               <p>Vendor Type : {vendorType}</p>
+              <Cuisines cuisine={cuisines}/>
               </>
               </UnifiedCard>)
 

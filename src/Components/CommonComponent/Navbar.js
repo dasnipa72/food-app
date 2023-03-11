@@ -8,9 +8,9 @@ export default function NavbarComponent(args) {
   const cartItems = useContext(UserContext).cartItems;
   const navigate = useNavigate()
 
-  useEffect(()=>{
+  // useEffect(()=>{
 
-  },[cartItems])
+  // },[cartItems])
 
   return (
     <Navbar {...args} dark color='dark' fixed='top'>
@@ -38,7 +38,7 @@ export default function NavbarComponent(args) {
           </NavLink>
         </NavItem>
       </Nav>
-      <NavbarText>Simple Text</NavbarText>
+      <NavbarText>Login</NavbarText>
     </Navbar>
   )
 }

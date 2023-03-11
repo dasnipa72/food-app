@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Container, Row, Col, Alert } from 'reactstrap';
+import { Container, Row, Alert } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import { UserContext, UserDispatchContext } from '../context/context'
 import UnifiedCard from '../Components/CommonComponent/Card'
@@ -16,9 +16,7 @@ export default function Items() {
     const navigate = useNavigate()
 
     const addToCart = (item) => {
-        const cartData = cartItems;
-        cartData.push(item)
-        setCartItems(cartData)
+        setCartItems(prev => [...prev, item]);
         setAlertVisible(true)
     }
     return (
@@ -38,21 +36,21 @@ export default function Items() {
                         <Row className='vendor-container'>
                             {
                                 Items.length && Items.map((item, index) => {
-                                    const { id, basePrice, cuisine, customisations, description, image, isVegetarian,
-                                        itemName, neonUrl, schedules, sellingPrice, taxRate } = item;
+                                    const { id, basePrice, cuisine, description, image, isVegetarian,
+                                        itemName, neonUrl, sellingPrice, taxRate } = item;
                                     return (<UnifiedCard
                                         key={id}
                                         title={itemName}
                                         description={description}
-                                        btnName={'Add to Cart'} // show more
+                                        btnName={'Add to Cart'}
                                         img={image}
                                         altImage={neonUrl}
                                         imgRequire={true}
                                         handleClick={() => addToCart(item)}
                                     ><>
                                             <p>Item Price : {basePrice}</p>
-                                            <p>Selling Price : {sellingPrice}</p>
-                                            <p>{isVegetarian ? "Veg" : "Non-Veg"}</p>
+                                            <p><strong>Selling Price </strong>: {sellingPrice}</p>
+                                            <p>{isVegetarian ? <span className='veg'>Veg</span> : <span className='nonveg'>Non-Veg</span>}</p>
                                         </>
                                     </UnifiedCard>)
 

@@ -18,7 +18,11 @@ export default function order() {
     <Container className='container'>
       <Row className='banner-caontainer'>
         <h3>ORDER DETAILS</h3>
-        {orderedItems}
+        {orderedItems?.length && [orderedItems].map((order, idx) => (
+          <Row key={idx}>
+            <Col>{order}</Col>
+          </Row>
+        ))}
       </Row>
     </Container>
   )
